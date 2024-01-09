@@ -202,7 +202,7 @@ public abstract class Pickable : MonoBehaviour, IDragHandler, IBeginDragHandler,
             {
                 CurrentState = State.Dragging;
                  // transform.position = new Vector3(image.position.x + eventData.delta.x, image.position.y + eventData.delta.y, 0); 
-                    transform.position = mainCamera.ScreenToWorldPoint( new Vector3( eventData.position.x, eventData.position.y , 0) + offset);
+                    transform.position = mainCamera.ScreenToWorldPoint( new Vector3( eventData.position.x, eventData.position.y , 0) + offset); //for chalk
               
                 /*Ray ray = new Ray(rayPoint.position, Vector3.forward);
 

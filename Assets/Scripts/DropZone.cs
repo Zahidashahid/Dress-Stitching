@@ -4,6 +4,7 @@ using UnityEngine;
 public class DropZone : MonoBehaviour
 {
     public int acceptedclothPieceNum;
+    [SerializeField] public Transform[] points;
     /*private void OnTriggerEnter2D(Collider2D collision)
     {
         ClothPiece clothPiece = collision.GetComponent<ClothPiece>();
