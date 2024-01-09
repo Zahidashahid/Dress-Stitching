@@ -5,11 +5,11 @@ using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 
-[RequireComponent(typeof(BoxCollider))]
+[RequireComponent(typeof(PolygonCollider2D))]
 public abstract class Pickable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
-{
+{/*
     [Header("++Ray Settings++")]
-    [SerializeField] protected Transform rayPoint;
+    [SerializeField] protected Transform rayPoint;*/
 
     [Header("++PickingOffset++")]
     [SerializeField] Vector3 offset;
@@ -31,7 +31,7 @@ public abstract class Pickable : MonoBehaviour, IDragHandler, IBeginDragHandler,
     // private vars
     private Vector3 orgPosition;
     private Transform orgTransform;
-    private Camera mainCamera;
+    public Camera mainCamera;
     private Sequence sequence;
 
     protected void Start()
@@ -201,7 +201,9 @@ public abstract class Pickable : MonoBehaviour, IDragHandler, IBeginDragHandler,
             if (_toolUp)
             {
                 CurrentState = State.Dragging;
-                transform.position = new Vector3(image.position.x + eventData.delta.x, image.position.y + eventData.delta.y, 0);
+                 // transform.position = new Vector3(image.position.x + eventData.delta.x, image.position.y + eventData.delta.y, 0); 
+                    transform.position = mainCamera.ScreenToWorldPoint( new Vector3( eventData.position.x, eventData.position.y , 0) + offset);
+              
                 /*Ray ray = new Ray(rayPoint.position, Vector3.forward);
 
                 Debug.DrawRay(ray.origin, ray.direction, Color.red);
@@ -209,23 +211,23 @@ public abstract class Pickable : MonoBehaviour, IDragHandler, IBeginDragHandler,
                 if (Physics.Raycast(ray.origin, ray.direction, out RaycastHit hit, 1f))
                     hitInfo = hit;
                 else hitInfo = default;*/
-                 // print("hitInfo ..." + hitInfo);
+                // print("hitInfo ..." + hitInfo);
 
 
                 // Create a 2D ray from the mouse position
-               /* Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                Ray2D _ray = new Ray2D(mousePosition, Vector2.zero);
+                /* Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                 Ray2D _ray = new Ray2D(mousePosition, Vector2.zero);
 
-                // Perform the raycast
-                RaycastHit2D _hit = Physics2D.Raycast(_ray.origin, _ray.direction);
-                Debug.DrawRay(transform.position, Vector3.forward, Color.red);
+                 // Perform the raycast
+                 RaycastHit2D _hit = Physics2D.Raycast(_ray.origin, _ray.direction);
+                 Debug.DrawRay(transform.position, Vector3.forward, Color.red);
 
-                // Check if the ray hits something
-                if (_hit.collider != null)
-                {
-                    // Do something with the hit information
-                    Debug.Log("Hit object: " + _hit.collider.gameObject.name);
-                }*/
+                 // Check if the ray hits something
+                 if (_hit.collider != null)
+                 {
+                     // Do something with the hit information
+                     Debug.Log("Hit object: " + _hit.collider.gameObject.name);
+                 }*/
 
             }
         }
